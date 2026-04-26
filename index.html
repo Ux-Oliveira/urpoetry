@@ -801,6 +801,7 @@ const tracks = [
 
 let trackIndex = 0;
 let audio = null;
+let wasPaused = false; 
 
 window.addEventListener("load", () => {
   const btn = document.getElementById("musicBtn");
@@ -811,7 +812,8 @@ window.addEventListener("load", () => {
   }
 
   btn.addEventListener("click", () => {
-    // first click creates audio (important for browser autoplay rules)
+
+
     if (!audio) {
       audio = new Audio(tracks[trackIndex]);
       audio.play();
@@ -822,18 +824,27 @@ window.addEventListener("load", () => {
         audio.play();
       });
 
+      wasPaused = false;
       return;
     }
 
-    // toggle play/pause
-    if (audio.paused) {
-      audio.play();
-    } else {
+    //pause
+    if (!audio.paused) {
       audio.pause();
+      wasPaused = true;
+      return;
     }
+
+    //no resume
+    if (audio.paused && wasPaused) {
+      trackIndex = (trackIndex + 1) % tracks.length;
+      audio.src = tracks[trackIndex];
+      audio.play();
+      wasPaused = false;
+    }
+
   });
 });
-
 </script>
 
 <script type="module" src="/src/main.jsx"></script>
