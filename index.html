@@ -4,15 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- FAVICON (ALL BROWSERS) -->
-<link rel="icon" href="/flowericon.png" type="image/png" sizes="32x32">
-<link rel="icon" href="/flowericon.png" type="image/png" sizes="16x16">
+  <!-- FAVICON (ALL BROWSERS FIXED) -->
+<link rel="icon" href="/flowericon.ico" sizes="any">
 
-<!-- iOS / iPad / iPhone -->
-<link rel="apple-touch-icon" sizes="180x180" href="/flowericon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/flowericon.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/flowericon.png?v=2">
 
-<!-- fallback for some Safari cases -->
-<link rel="shortcut icon" href="/flowericon.png">
+<!-- iOS / iPad -->
+<link rel="apple-touch-icon" sizes="180x180" href="/flowericon.png?v=2">
+
+<!-- Safari pinned tab fallback -->
+<link rel="mask-icon" href="/flowericon.png?v=2" color="#ffffff">
+
+<!-- force reload cache -->
+<meta name="theme-color" content="#0f0f0f">
   
   <title>Ur Poetry</title>
   <meta name="description" content="A Collection of Words. A Multitude of Gestures." />
