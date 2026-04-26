@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You're The Poetry</title>
+
+  <!-- Speed: preconnect to fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Speed: preload first-view images (desktop + mobile heroes) -->
+  <link rel="preload" as="image" href="/Melis.png" imagesrcset="/Melis.png">
+  <link rel="preload" as="image" href="/Melis.png" imagesrcset="/Melis.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Shrikhand&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f0f0f;
+      --card:#171717;
+      --soft:#222;
+      --text:#e9f3d1;
+      --brand:#5cc0ff;
+      --brown:#c9b39a1a;
+      --radius:22px;
+      --gap:18px;
+
+      --store-bg:#3E95A6;
+      --credit:#141414;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* NAV */
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(1.2) blur(6px);
+      background:linear-gradient(180deg,rgba(15,15,15,.9),rgba(15,15,15,.6));
+      border-bottom:1px solid #222;
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;position:relative}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.5px}
+    .brand .logo{height:28px;width:auto;display:block}
+    .brand small{opacity:.6;font-weight:600}
+
+    /* desktop links */
+    .links{display:flex;align-items:center}
+    .links a{
+      margin-left:18px;font-weight:600;opacity:.9;padding:.4rem .7rem;border-radius:12px;
+      transition:transform .2s ease, background .2s ease, opacity .2s ease;
+    }
+    .links a:hover{opacity:1;background:#1c1c1c;transform:translateY(-1px)}
+    .btn-news{
+      margin-left:18px;
+      padding:.5rem .85rem;border-radius:999px;color:#111;background:linear-gradient(90deg,#fa0292,#f06161);
+      font-weight:800;letter-spacing:.2px;border:1px solid #00000020;box-shadow:0 2px 10px #ff6a0033;
+    }
+    .btn-news:hover{transform:translateY(-1px);background:linear-gradient(90deg,#fa0292,#f06161)}
+
+    /* hamburger (hidden on desktop) */
+    .hamb{display:none;gap:6px;flex-direction:column;justify-content:center;align-items:center;width:42px;height:42px;border-radius:10px;border:1px solid #2a2a2a;background:#151515;color:#fff;cursor:pointer}
+    .hamb span{display:block;width:20px;height:2px;background:#eaeaea;border-radius:2px;transition:transform .2s ease,opacity .2s ease}
+    .hamb.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .hamb.open span:nth-child(2){opacity:0}
+    .hamb.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+    /* mobile dropdown panel */
+    @media (max-width: 820px){
+      .links{
+        display:none;position:absolute;top:100%;right:0;left:0;
+        background:rgba(15,15,15,.96);backdrop-filter:blur(8px);
+        border-bottom:1px solid #222;padding:10px 16px 14px;flex-direction:column;align-items:flex-start;gap:6px;
+      }
+      .links a, .btn-news{margin:0;width:100%}
+      .links.show{display:flex;animation:menuDrop .18s ease-out}
+      @keyframes menuDrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+      .hamb{display:flex}
+    }
+
+    /* LOGO STRIP */
+    .logo-strip{background:var(--brown);border-bottom:1px solid #24211c}
+    .logo-card{
+      margin:22px auto;border-radius:var(--radius);
+      padding:28px 20px;background:#201a1411;border:1px solid #3a342b33;
+      display:grid;place-items:center;text-align:center;
+    }
+    .logo-title{font-family:"Shrikhand", cursive;color:var(--text);font-size:clamp(26px,5vw,48px)}
+    .logo-sub{opacity:.75;margin-top:.35rem;font-size:.95rem}
+
+    section{padding:64px 0}
+    h2{font-size:clamp(24px,3.8vw,38px);margin:0 0 18px}
+    p.lead{opacity:.9;max-width:850px}
+
+  /* HOME – 4 tiles (desktop/tablet) */
+.grid-hero{
+  display:grid;gap:var(--gap);
+  grid-template-columns: repeat(12,1fr);
+  grid-template-rows: 240px 200px 200px;
+  grid-template-areas:
+    "top top top top top top top top top top top top"
+    "left left left left rtop rtop rtop rtop rtop rtop rtop rtop"
+    "left left left left rbot rbot rbot rbot rbot rbot rbot rbot";
+  contain:layout paint; overflow:hidden; margin-bottom:8px;
+}
+
+.tile{
+  position:relative;overflow:hidden;border-radius:18px;
+  background:var(--card);border:1px solid #262626;
+  box-shadow:0 4px 20px #00000030 inset, 0 0 0 1px #00000020;
+  transform:translateZ(0);isolation:isolate;
+}
+
+.tile::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background-size:cover;
+  background-position:center;
+  opacity:.55;
+}
+
+/* assign fixed images */
+.t-top::before{background-image:url("Smile.png")}
+.t-left::before{background-image:url("bicep.png")}
+.t-rtop::before{background-image:url("eyes.png")}
+.t-rbot::before{background-image:url("clutch.png")}
+
+.tile a{position:absolute;inset:0;z-index:3}
+
+.tile .zoom{
+  position:absolute;inset:-2px;
+  width:calc(100% + 4px);
+  height:calc(100% + 4px);
+  transition:transform .25s ease;
+  will-change:transform;
+  z-index:1;
+}
+
+.tile:hover .zoom{transform:scale(1.05)}
+
+.tile .ph{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  will-change:transform;
+}
+
+/* grid areas */
+.t-top{grid-area:top}
+.t-left{grid-area:left}
+.t-rtop{grid-area:rtop}
+.t-rbot{grid-area:rbot}
+
+/* 🔥 SLIDE ONLY (NO FADE) */
+@keyframes slideFromLeft{
+  0%{transform:translateX(-105%)}
+  15%,85%{transform:translateX(0)}
+  100%{transform:translateX(-105%)}
+}
+
+@keyframes slideFromRight{
+  0%{transform:translateX(105%)}
+  15%,85%{transform:translateX(0)}
+  100%{transform:translateX(105%)}
+}
+
+@keyframes slideFromTop{
+  0%{transform:translateY(-105%)}
+  15%,85%{transform:translateY(0)}
+  100%{transform:translateY(-105%)}
+}
+
+@keyframes slideFromBottom{
+  0%{transform:translateY(105%)}
+  15%,85%{transform:translateY(0)}
+  100%{transform:translateY(105%)}
+}
+
+/* smoother motion */
+.t-top .ph {animation:slideFromTop 4.5s ease-in-out infinite}
+.t-left .ph{animation:slideFromLeft 4.5s ease-in-out infinite}
+.t-rtop .ph{animation:slideFromRight 4.5s ease-in-out infinite}
+.t-rbot .ph{animation:slideFromBottom 4.5s ease-in-out infinite}
+/* MOBILE*/
+.mobile-hero{
+  display:none;
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid #262626;
+  background:#111;
+}
+
+.mobile-hero a{position:absolute;inset:0;z-index:3}
+
+/* container */
+.mobile-hero .mh-zoom{
+  position:relative;
+  width:100%;
+  height:62vh;
+  min-height:320px;
+  max-height:520px;
+  overflow:hidden;
+  z-index:1;
+}
+
+/* BOTH IMAGES (no resize tricks, no distortion) */
+.mobile-hero img{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+
+  will-change:transform;
+  transform:translate3d(0,0,0);
+}
+
+/* FRONT (slides right) */
+.mobile-hero img.front{
+  animation:slideFront 8s linear infinite;
+  z-index:2;
+}
+
+/* BACK (slides left) */
+.mobile-hero img.back{
+  animation:slideBack 8s linear infinite;
+  z-index:1;
+}
+
+/* SLIDE RIGHT */
+@keyframes slideFront{
+  0%{ transform:translate3d(-100%,0,0); }
+  100%{ transform:translate3d(100%,0,0); }
+}
+
+/* SLIDE LEFT */
+@keyframes slideBack{
+  0%{ transform:translate3d(0,0,0); }
+  100%{ transform:translate3d(-100%,0,0); }
+}
+.mobile-hero:hover img{transform:none}
+    /* STORE */
+    .section-store{
+      background:var(--store-bg);
+      color:#1a1a1a;
+      padding:84px 0;
+      margin-bottom:96px;
+      border-top:1px solid #00000012;border-bottom:1px solid #00000012;
+    }
+    .section-store h2{color:#202020}
+    .section-store .reviews,.section-store .map{border-color:#00000022;background:#fff;box-shadow:0 2px 10px #00000012}
+    .section-store .review{background:#D6762E;border-color:#00000018}
+    .section-store .meta{color:#333;opacity:.7}
+
+    .store{display:grid;gap:var(--gap);grid-template-columns: 1.15fr .85fr}
+    .map{border-radius:18px;overflow:hidden;border:1px solid #262626;background:#000;position:relative}
+    .map a{position:absolute;inset:0;z-index:2}
+    .map-inner{position:relative;height:100%;transition:transform .25s ease;transform-origin:center}
+    .map:hover .map-inner{transform:scale(1.03)}
+    .map iframe{width:100%;height:100%;min-height:420px;border:0;display:block;filter:saturate(1.05) contrast(1.02)}
+    .reviews{border-radius:18px;border:1px solid #262626;background:var(--card);padding:18px;display:flex;flex-direction:column;gap:12px}
+    .review{opacity:0;transition:opacity .5s ease;will-change:opacity;background:var(--soft);border:1px solid #2a2a2a;border-radius:16px;padding:16px;line-height:1.45}
+    .review.active{opacity:1}
+    .review .who{font-weight:700}.review .meta{opacity:.7;font-size:.9rem}
+
+    /* ABOOT */
+    .section-aboot{position:relative;background:url("aboot2.png") center/cover no-repeat fixed;padding:84px 0;border-top:1px solid #ffffff14}
+    .section-aboot::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.55))}
+    .section-aboot > .wrap{position:relative;z-index:1}
+    .aboot{border-radius:18px;border:1px solid #262626;background:#0f0f0fBB;padding:0;overflow:hidden}
+    .aboot .content{padding:48px}
+    .aboot p{max-width:850px;opacity:.95}
+    .pulse-btn{
+      display:inline-grid;place-items:center;gap:2px;
+      padding:16px 22px;border-radius:999px;
+      background:linear-gradient(90deg,#fa0292,#f06161);
+      color:#111;font-weight:800;letter-spacing:.3px;border:none;cursor:pointer;
+      position:relative;overflow:hidden;margin-top:18px;
+      box-shadow:0 6px 24px #ff6a0036;
+      animation:breath 1.8s ease-in-out infinite;
+    }
+
+
+    .pulse-btn h1{font-size:clamp(18px,3.6vw,28px);margin:0}
+    @keyframes breath{0%,100%{transform:scale(1)} 50%{transform:scale(1.04)}}
+
+    /* LOADER (HEART SHAPE) */
+.loader{
+  position:fixed;
+  inset:0;
+  background:#0f0f0f;
+  display:grid;
+  place-items:center;
+  z-index:1000;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+/* Heart container */
+.loader .heart{
+  position:relative;
+  width:120px;
+  height:110px;
+  transform:rotate(-45deg);
+  animation:beat 1.2s ease-in-out infinite;
+}
+
+/* Main heart square */
+.loader .heart::before,
+.loader .heart::after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:110px;
+  background:#ff4d4d;
+  border-radius:50%;
+  box-shadow:0 0 25px #ff4d4d88;
+}
+
+/* Left circle */
+.loader .heart::before{
+  top:-60px;
+  left:0;
+}
+
+/* Right circle */
+.loader .heart::after{
+  left:60px;
+  top:0;
+}
+
+/* Bottom square */
+.loader .heart{
+  background:#ff4d4d;
+  box-shadow:0 0 25px #ff4d4d88;
+}
+
+/* Pulse animation */
+@keyframes beat{
+  0%,100%{ transform:rotate(-45deg) scale(1); }
+  50%{ transform:rotate(-45deg) scale(1.15); }
+}
+
+
+    /* Back-to-top FAB with LOGO */
+    .to-top{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:60;
+
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  overflow:hidden; 
+
+  display:grid;
+  place-items:center;
+
+  background:#ffffffee;
+  border:1px solid #00000022;
+  box-shadow:0 6px 18px #00000035;
+
+  text-decoration:none;
+  transition:transform .15s ease, opacity .15s ease;
+}
+    
+.to-top:hover{transform:translateY(-2px)}
+    
+.to-top img{width:1000%;height:100%;object-fit:cover;display:block;}
+
+    /* Main footer */
+    footer.main{padding:50px 0 40px;opacity:.65}
+
+    /* Thin credit bar */
+    .credit{background:var(--credit);border-top:1px solid #1f1f1f;color:#9ea3a7;text-align:center;padding:8px 10px;font-size:12px;letter-spacing:.2px}
+
+   /* Modal (Newsletter) */
+body.modal-open{overflow:hidden}
+
+.modal-overlay{
+  position:fixed;inset:0;z-index:1002;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.35);
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+}
+.modal-overlay.show{display:flex}
+
+.modal-wrap{position:relative; width:min(92vw,560px)}
+
+.modal-card{
+  width:100%;
+  background:linear-gradient(180deg,#ffffff,#f8f8f8);
+  color:#111;
+  border-radius:22px;
+  border:1px solid #00000010;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  position:relative;
+  padding:30px 26px 26px;
+}
+
+.modal-close{
+  position:absolute;left:-18px;top:-18px;
+  width:42px;height:42px;border-radius:14px;
+  border:1px solid #00000022;
+  background:#f3f3f3;
+  display:grid;place-items:center;
+  font-weight:900;color:#444;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+.modal-close:hover{background:#eaeaea}
+
+.modal-head h1{
+  margin:6px 0;
+  font-size:clamp(20px,4.6vw,28px);
+  line-height:1.1;
+}
+
+/* ✨ ULTRA CUTER INPUTS */
+.modal-form{
+  margin-top:18px;
+  display:grid;
+  gap:16px;
+}
+
+/* input wrapper for floating label */
+.input-group{
+  position:relative;
+}
+
+.input-group input{
+  width:100%;
+  padding:16px 16px;
+  border-radius:16px;
+  border:1px solid #e4e4e4;
+  font-size:15px;
+  background:linear-gradient(180deg,#ffffff,#f7f7f7);
+  outline:none;
+  transition:all .25s ease;
+  box-shadow:
+    inset 0 1px 2px rgba(0,0,0,0.06),
+    0 4px 12px rgba(0,0,0,0.04);
+}
+
+/* floating label */
+.input-group label{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:14px;
+  color:#9aa1a6;
+  pointer-events:none;
+  transition:all .2s ease;
+  background:#fff;
+  padding:0 6px;
+}
+
+/* active state */
+.input-group input:focus{
+  border-color:#ff8a4d;
+  box-shadow:
+    0 0 0 3px rgba(255,138,77,0.18),
+    0 6px 18px rgba(0,0,0,0.08);
+  transform:translateY(-1px);
+}
+
+/* float label up */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label{
+  top:-8px;
+  font-size:12px;
+  color:#ff8a4d;
+}
+
+.modal-actions{margin-top:10px}
+.signup-btn{width:100%; text-align:center}
+.signup-btn h1{margin:0}
+
+/* RESPONSIVE */
+@media (max-width: 980px){
+  .grid-hero{display:none}
+  .mobile-hero{display:block}
+
+  .store{grid-template-columns:1fr}
+  .map iframe{min-height:340px}
+  .brand .logo{height:26px}
+  .to-top{width:52px;height:52px}
+  section{padding:52px 0}
+
+  .section-aboot{background-attachment: scroll;}
+}
+  </style>
+
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="heart"><div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div></div>
+  </div>
+
+  <!-- Back-to-top FAB with LOGO -->
+  <a href="#home" class="to-top" aria-label="Back to top / Home">
+    <img src="flower.png" alt="flower buttom" decoding="async">
+  </a>
+
+  <!-- NAV -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <small>Specially for the baby girl...</small>
+      </div>
+
+      <button class="hamb" id="hamb" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="links" id="navMenu">
+        <a href="#home" class="navlink">Gallery</a>
+        <a href="#store" class="navlink">Poetry</a>
+        <a href="#!" id="openNewsletter" class="btn-news">Newsletter</a>
+        <a href="#aboot" class="navlink">About ❤️</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip">
+    <div class="wrap">
+      <div class="logo-card">
+        <div class="logo-title">You're The Poetry</div>
+        <div class="logo-sub">I put the words into place · But the meaning of thoses words · Will always be you</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+<section id="home" class="wrap">
+  <div class="grid-hero">
+    
+    <figure class="tile t-top">
+      <a href="https://example.com/" target="_blank"></a>
+
+      <!-- BACKGROUND ROTATOR -->
+      <div class="bg"></div>
+
+      <div class="zoom">
+        <img class="ph" src="Melis.png" alt="baby girl" fetchpriority="high" decoding="async">
+      </div>
+    </figure>
+
+    <figure class="tile t-left">
+      <a href="https://example.com/" target="_blank"></a>
+
+      <div class="bg"></div>
+
+      <div class="zoom">
+        <img class="ph" src="Melis2.png" alt="baby girl 2" decoding="async">
+      </div>
+    </figure>
+
+    <figure class="tile t-rtop">
+      <a href="https://example.com/" target="_blank"></a>
+
+      <div class="bg"></div>
+
+      <div class="zoom">
+        <img class="ph" src="Melis3.png" alt="baby girl 3" decoding="async">
+      </div>
+    </figure>
+
+    <figure class="tile t-rbot">
+      <a href="https://example.com/" target="_blank"></a>
+
+      <div class="bg"></div>
+
+      <div class="zoom">
+        <img class="ph" src="Melis4.png" alt="baby girl 4" decoding="async">
+      </div>
+    </figure>
+
+  </div>
+<div class="mobile-hero">
+  <a href="https://example.com/" target="_blank"></a>
+
+  <div class="mh-zoom">
+    <img id="imgBack" class="back" src="Melis2.png" alt="bg">
+    <img id="imgFront" class="front" src="Melis.png" alt="cute">
+  </div>
+</div>
+</section>
+
+
+
+  <!-- STORE -->
+  <section id="store" class="section-store">
+    <div class="wrap">
+      <h2 style="margin-top:0">Your daily poetry</h2>
+      <div id="poetry-root"></div>
+    </div>
+  </section>
+
+  <!-- ABOOT -->
+  <section id="aboot" class="section-aboot">
+    <div class="wrap">
+      <div class="aboot">
+        <div class="content">
+          <h2>About this love of mine...</h2>
+          <p>
+           It is never ending and all emcompassing &amp; It has no limit or pain attatched to it. Only the joy of knowing my heart has an owner, you. And a place to belong to, your hands. I'm yours, my baby girl. My soul calls for yours and as long as I breathe, the one who will take all my breathes away is you. And the one my heart will beat for is you. I love you, Melis!
+          </p>
+
+          <a class="pulse-btn" href="https://example.com/" target="_blank" rel="noopener">
+            <h1>❤️</h1>
+          </a>
+          <button id="musicBtn" class="pulse-btn"><h1>🎶</h1></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="credit">with love, for you</div>
+
+  <!-- MODAL -->
+<div class="modal-overlay" id="newsModal">
+  <div class="modal-wrap">
+    <button class="modal-close" id="closeModal">×</button>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h1>Join the Newsletter, baby girl!</h1>
+        <h1>Be reminded of my undying love &amp; my desire towards you</h1>
+      </div>
+
+      <form id="newsForm" class="modal-form">
+
+  <div class="input-group">
+    <input type="text" id="nameInput" placeholder=" " required />
+    <label>Your name</label>
+  </div>
+
+  <div class="input-group">
+    <input type="email" id="emailInput" placeholder=" " required />
+    <label>Your email</label>
+  </div>
+
+  <button type="submit" class="pulse-btn signup-btn">
+    <h1>Sign up!</h1>
+  </button>
+
+</form>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Loader */
+const hideLoader = () => {
+  const el = document.getElementById('loader');
+  if (el && !el.classList.contains('hide')) el.classList.add('hide');
+};
+document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 300));
+window.addEventListener('load', hideLoader);
+setTimeout(hideLoader, 3000);
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+
+/* Mobile menu */
+const hamb = document.getElementById('hamb');
+const navMenu = document.getElementById('navMenu');
+hamb.addEventListener('click', ()=> navMenu.classList.toggle('show'));
+
+/* MODAL */
+const LS_KEY = 'newsletter_signed';
+const modal = document.getElementById('newsModal');
+const openBtn = document.getElementById('openNewsletter');
+const closeBtn = document.getElementById('closeModal');
+const form = document.getElementById('newsForm');
+const emailInput = document.getElementById('emailInput');
+const nameInput = document.getElementById('nameInput');
+
+function openModal(){
+  form.style.display = "grid";
+  modal.classList.add('show');
+  form.reset();
+}
+
+function closeModal(){
+  modal.classList.remove('show');
+  form.reset();
+  form.style.display = "grid"; 
+}
+
+openBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  openModal();
+});
+
+closeBtn.addEventListener('click', closeModal);
+
+/* auto open if not signed */
+window.addEventListener('load', ()=>{
+  if(!localStorage.getItem(LS_KEY)) openModal();
+});
+
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+
+  const email = emailInput.value.trim();
+  const head = modal.querySelector('.modal-head');
+
+  if(email === "melisgnn99@gmail.com"){
+    head.innerHTML = `
+      <h1>Welcome back, my baby girl ❤️</h1>
+      <p style="margin-top:8px">You are the only one this was made for.</p>
+    `;
+
+    form.style.display = "none";
+    localStorage.setItem(LS_KEY, '1'); // save
+  } else {
+    head.innerHTML = `
+      <h1 style="color:#ff4d4d">Hey... you are not my baby girl!</h1>
+      <p style="margin-top:8px">Get the fuck out of here! 😤</p>
+    `;
+
+    form.style.display = "none";
+  }
+});
+
+const images = [
+  "Melis.png",
+  "Melis2.png",
+  "Melis3.png",
+  "Melis4.png"
+];
+
+let index = 0;
+
+const front = document.getElementById("imgFront");
+const back = document.getElementById("imgBack");
+
+if(front && back){
+  front.src = images[0];
+  back.src  = images[1];
+
+  front.style.transform = "translate3d(0,0,0)";
+  back.style.transform  = "translate3d(100%,0,0)";
+}
+
+/* loop */
+setInterval(() => {
+  if(!front || !back) return;
+
+  index = (index + 1) % images.length;
+
+  front.src = images[index];
+  back.src  = images[(index + 1) % images.length];
+
+  /* restart animation */
+  front.style.animation = "none";
+  back.style.animation  = "none";
+
+  void front.offsetWidth;
+
+  front.style.animation = "slideFront 8s linear";
+  back.style.animation  = "slideBack 8s linear";
+
+}, 8000);
+
+/*audio*/
+const tracks = [
+  "/hihi.mp3",
+  "/hihi2.mp3",
+  "/hihi3.mp3"
+];
+
+let trackIndex = 0;
+let audio = null;
+
+window.addEventListener("load", () => {
+  const btn = document.getElementById("musicBtn");
+
+  if (!btn) {
+    console.log("musicBtn not found");
+    return;
+  }
+
+  btn.addEventListener("click", () => {
+    // first click creates audio (important for browser autoplay rules)
+    if (!audio) {
+      audio = new Audio(tracks[trackIndex]);
+      audio.play();
+
+      audio.addEventListener("ended", () => {
+        trackIndex = (trackIndex + 1) % tracks.length;
+        audio.src = tracks[trackIndex];
+        audio.play();
+      });
+
+      return;
+    }
+
+    // toggle play/pause
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
+});
+
+</script>
+
+<script type="module" src="/src/main.jsx"></script>
+
+</body>
+</html>
