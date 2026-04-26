@@ -13,7 +13,9 @@ const poems = [
   { id: 22, img: "/poems/poem22.png", audio: "/audios/poem22.mp3" },
   { id: 23, img: "/poems/poem23.png", audio: "/audios/poem23.mp3" },
   { id: 24, img: "/poems/poem24.png", audio: "/audios/poem24.mp3" },
-  { id: 25, img: "/poems/poem25.png", audio: "/audios/poem25.mp3" }
+  { id: 25, img: "/poems/poem25.png", audio: "/audios/poem25.mp3" },
+  { id: 25, img: "/poems/poem26.png", audio: "/audios/poem26.mp3" },
+  { id: 25, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" }
 ];
 
 export default function PoetryGallery() {
