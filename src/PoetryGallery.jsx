@@ -14,9 +14,24 @@ const poems = [
   { id: 23, img: "/poems/poem23.png", audio: "/audios/poem23.mp3" },
   { id: 24, img: "/poems/poem24.png", audio: "/audios/poem24.mp3" },
   { id: 25, img: "/poems/poem25.png", audio: "/audios/poem25.mp3" },
-  { id: 25, img: "/poems/poem26.png", audio: "/audios/poem26.mp3" },
-  { id: 25, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" },
-  { id: 25, img: "/poems/poem28.png", audio: "/audios/poem28.mp3" }
+  { id: 26, img: "/poems/poem26.png", audio: "/audios/poem26.mp3" },
+  { id: 27, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" },
+  { id: 28, img: "/poems/poem28.png", audio: "/audios/poem28.mp3" },
+  { id: 29, img: "/poems/poem29.png", audio: "/audios/poem29.mp3" },
+  /*{ id: 30, img: "/poems/poem30.png", audio: "/audios/poem30.mp3" },*/
+  /*{ id: 1, img: "/poems/poem1-5.png", audio: "/audios/poem1-5.mp3" },*/
+  /*{ id: 2, img: "/poems/poem2-5.png", audio: "/audios/poem2-5.mp3" },*/
+  /*{ id: 3, img: "/poems/poem3-5.png", audio: "/audios/poem3-5.mp3" },*/
+  /*{ id: 4, img: "/poems/poem4-5.png", audio: "/audios/poem4-5.mp3" },*/
+  /*{ id: 5, img: "/poems/poem5-5.png", audio: "/audios/poem5-5.mp3" },*/
+  /*{ id: 6, img: "/poems/poem6-5.png", audio: "/audios/poem6-5.mp3" },*/
+  /*{ id: 7, img: "/poems/poem7-5.png", audio: "/audios/poem7-5.mp3" },*/
+  /*{ id: 8, img: "/poems/poem8-5.png", audio: "/audios/poem8-5.mp3" },*/
+  /*{ id: 9, img: "/poems/poem9-5.png", audio: "/audios/poem9-5.mp3" },*/
+  /*{ id: 10, img: "/poems/poem10-5.png", audio: "/audios/poem10-5.mp3" },*/
+  /*{ id: 11, img: "/poems/poem11-5.png", audio: "/audios/poem11-5.mp3" },*/
+  /*{ id: 12, img: "/poems/poem12-5.png", audio: "/audios/poem12-5.mp3" },*/
+  /*{ id: 13-05, img: "/poems/poem13-5.png", audio: "/audios/poem13-5.mp3" },*/
 ];
 
 export default function PoetryGallery() {
