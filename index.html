@@ -626,17 +626,19 @@ body.modal-open{overflow:hidden}
   </div>
 
   <!-- HOME -->
-<section id="home" class="wrap">
-  <div class="grid-hero">
-    
-    <figure class="tile t-top">
-      <a href="https://vocaroo.com/1krpfKfhv0Qc" target="_blank"></a>
-
-      <!-- BACKGROUND ROTATOR -->
+<!-- FIRST TILE -->
+    <figure class="tile t-top audio-tile" data-audio="audios/myfirstaudiotoher.mp3">
       <div class="bg"></div>
-
       <div class="zoom">
         <img class="ph" src="Melis.png" alt="baby girl" fetchpriority="high" decoding="async">
+      </div>
+    </figure>
+
+    <!-- SECOND TILE -->
+    <figure class="tile t-left audio-tile" data-audio="audios/mysecondaudiotoher.mp3">
+      <div class="bg"></div>
+      <div class="zoom">
+        <img class="ph" src="Melis2.png" alt="baby girl 2" decoding="async">
       </div>
     </figure>
 
@@ -915,6 +917,40 @@ window.addEventListener("load", () => {
       wasPaused = false;
     }
 
+  });
+});
+  
+const tiles = document.querySelectorAll(".audio-tile");
+
+let currentAudio = null;
+
+tiles.forEach(tile => {
+  const src = tile.getAttribute("data-audio");
+  let audio = new Audio(src);
+
+  tile.addEventListener("click", () => {
+
+    //stoping if something else is playing
+    if (currentAudio && currentAudio !== audio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    //toggle
+    if (!audio.paused) {
+      audio.pause();
+      audio.currentTime = 0;
+      currentAudio = null;
+    } else {
+      audio.play();
+      currentAudio = audio;
+
+      //auto reseingt when finished
+      audio.onended = () => {
+        audio.currentTime = 0;
+        currentAudio = null;
+      };
+    }
   });
 });
 </script>
