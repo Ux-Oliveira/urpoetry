@@ -63,6 +63,10 @@ export default function PoetryGallery() {
     a.click();
   };
 
+  const goToNewest = () => {
+    setIndex(poems.length - 1);
+  };
+
   return (
     <div style={{ textAlign: "center" }}>
       
@@ -99,12 +103,19 @@ export default function PoetryGallery() {
       </div>
 
       {/* AUDIO BUTTON */}
-      <div style={{ marginTop: "16px" }}>
+      <div style={{ marginTop: "16px", display: "flex", justifyContent: "center", gap: "12px" }}>
         <button
           onClick={() => playAudio(current.audio, current.id)}
           className={`play-btn ${playing === current.id ? "playing" : ""}`}
         >
           Listen
+        </button>
+
+        <button
+          onClick={goToNewest}
+          className="play-btn"
+        >
+          Newest
         </button>
       </div>
 
