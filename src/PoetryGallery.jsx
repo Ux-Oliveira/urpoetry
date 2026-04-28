@@ -15,7 +15,8 @@ const poems = [
   { id: 24, img: "/poems/poem24.png", audio: "/audios/poem24.mp3" },
   { id: 25, img: "/poems/poem25.png", audio: "/audios/poem25.mp3" },
   { id: 25, img: "/poems/poem26.png", audio: "/audios/poem26.mp3" },
-  { id: 25, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" }
+  { id: 25, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" },
+  { id: 25, img: "/poems/poem28.png", audio: "/audios/poem28.mp3" }
 ];
 
 export default function PoetryGallery() {
