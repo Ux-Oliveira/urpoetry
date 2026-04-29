@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const poems = [
   { id: 13, img: "/poems/poem13.png", audio: "/audios/poem13.mp3" },
@@ -18,7 +18,7 @@ const poems = [
   { id: 27, img: "/poems/poem27.png", audio: "/audios/poem27.mp3" },
   { id: 28, img: "/poems/poem28.png", audio: "/audios/poem28.mp3" },
   { id: 29, img: "/poems/poem29.png", audio: "/audios/poem29.mp3" },
-  /*{ id: 30, img: "/poems/poem30.png", audio: "/audios/poem30.mp3" },*/
+  { id: 30, img: "/poems/poem30.png", audio: "/audios/poem30.mp3" },
   /*{ id: 1, img: "/poems/poem1-5.png", audio: "/audios/poem1-5.mp3" },*/
   /*{ id: 2, img: "/poems/poem2-5.png", audio: "/audios/poem2-5.mp3" },*/
   /*{ id: 3, img: "/poems/poem3-5.png", audio: "/audios/poem3-5.mp3" },*/
@@ -38,6 +38,9 @@ export default function PoetryGallery() {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(null);
   const [currentAudio, setCurrentAudio] = useState(null);
+
+  const startX = useRef(0);
+  const endX = useRef(0);
 
   const current = poems[index];
 
@@ -82,6 +85,32 @@ export default function PoetryGallery() {
     setIndex(poems.length - 1);
   };
 
+  const handleTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    endX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const diff = startX.current - endX.current;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && index < poems.length - 1) {
+        setIndex((i) => i + 1);
+      } else if (diff < 0 && index > 0) {
+        setIndex((i) => i - 1);
+      }
+
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        setPlaying(null);
+      }
+    }
+  };
+
   return (
     <div style={{ textAlign: "center" }}>
       
@@ -98,7 +127,12 @@ export default function PoetryGallery() {
         </button>
 
         {/* IMAGE FRAME */}
-        <div className="frame">
+        <div
+          className="frame"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <img
             key={current.img}
             src={current.img}
