@@ -66,12 +66,13 @@ export default function Game() {
         setVictory(true);
         rightAudio.currentTime = 0;
         rightAudio.play();
-         }
+      }
     }
   };
-     return (
-  <section className="game-page">
-    <style>{`
+
+  return (
+    <section className="game-page">
+      <style>{`
       * {
         box-sizing: border-box;
       }
@@ -528,6 +529,112 @@ export default function Game() {
         }
       }
     `}</style>
-  </section>
-);
+
+      <div className="wrap">
+        <header>
+          <div className="nav">
+            <div className="brand">
+              <small>Hangman For Melis ❤️</small>
+            </div>
+
+            <a href="/" className="btn-home">
+              Home
+            </a>
+          </div>
+        </header>
+
+        <div className="logo-strip">
+          <div className="logo-card">
+            <div className="logo-title">Guess Her Name</div>
+
+            <div className="logo-sub">
+              The name of the girl I love most.
+            </div>
+          </div>
+        </div>
+
+        <div className="game-wrap">
+          <div className={`game-modal ${flashWrong ? "flash" : ""}`}>
+            {!started ? (
+              <div className="play-holder">
+                <button className="play-btn" onClick={startGame}>
+                  Start Game
+                </button>
+              </div>
+            ) : (
+              <div className="word-section">
+                <h1 className="hang-title">
+                  Guess the name ❤️
+                </h1>
+
+                <div className="slots">
+                  {answer.split("").map((letter, index) => (
+                    <div key={index} className="slot">
+                      {guessed.includes(letter) ? letter : ""}
+                    </div>
+                  ))}
+                </div>
+
+                <input
+                  className="mobile-input"
+                  type="text"
+                  maxLength={1}
+                  value={input}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setInput(value);
+                    submitLetter(value);
+                  }}
+                />
+
+                <button
+                  className="play-btn"
+                  onClick={() => {
+                    const value = prompt("Enter a letter");
+
+                    if (value) {
+                      submitLetter(value);
+                    }
+                  }}
+                >
+                  Guess Letter
+                </button>
+
+                <div className="used">
+                  Used letters:
+                  <br />
+                  {guessed.join(", ")}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="stats">
+          Attempts: {stats.attempts}
+          <br />
+          Right guesses: {stats.rightGuesses}
+        </div>
+
+        {victory && (
+          <div className="victory">
+            <div className="victory-card">
+              <h2>You Won ❤️</h2>
+
+              <p>
+                Melis will always be the answer.
+              </p>
+
+              <button
+                className="play-btn"
+                onClick={startGame}
+              >
+                Play Again
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
