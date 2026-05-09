@@ -1,9 +1,16 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import PoetryGallery from "./PoetryGallery";
+import Game from "./components/Game";
 
-const container = document.getElementById("poetry-root");
+const poetryContainer = document.getElementById("poetry-root");
 
-if (container) {
-  createRoot(container).render(<PoetryGallery />);
+if (poetryContainer) {
+  createRoot(poetryContainer).render(<PoetryGallery />);
+}
+
+const gameContainer = document.getElementById("game-root");
+
+if (gameContainer) {
+  createRoot(gameContainer).render(<Game />);
 }
