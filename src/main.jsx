@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import PoetryGallery from "./PoetryGallery";
-import Game from "./Game";
+import Game from "./Game.jsx";
 
 const poetryContainer = document.getElementById("poetry-root");
 
