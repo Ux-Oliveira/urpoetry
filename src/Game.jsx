@@ -1,20 +1,66 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Game() {
-  const answer = "MELIS";
 
-  const [started, setStarted] = useState(false);
-  const [guessed, setGuessed] = useState([]);
-  const [wrongCount, setWrongCount] = useState(0);
-  const [flashWrong, setFlashWrong] = useState(false);
-  const [victory, setVictory] = useState(false);
-  const [showGame, setShowGame] = useState(false);
-  const [shakeMan, setShakeMan] = useState(false);
+  const levels = [
+    {
+      answer: "MELIS",
+      title: "Level 1",
+      subtitle: "The beginning ❤️",
+    },
+
+    {
+      answer: "ANGEL",
+      title: "Level 2",
+      subtitle: "Still thinking about her...",
+    },
+
+    {
+      answer: "POETRY",
+      title: "Level 3",
+      subtitle: "Words always lead back to her",
+    },
+
+    {
+      answer: "FOREVER",
+      title: "Level 4",
+      subtitle: "Some feelings never leave",
+    },
+  ];
+
+  const [currentLevel, setCurrentLevel] = useState(0);
+
+  const answer =
+    levels[currentLevel].answer;
+
+  const [started, setStarted] =
+    useState(false);
+
+  const [guessed, setGuessed] =
+    useState([]);
+
+  const [wrongCount, setWrongCount] =
+    useState(0);
+
+  const [flashWrong, setFlashWrong] =
+    useState(false);
+
+  const [victory, setVictory] =
+    useState(false);
+
+  const [showGame, setShowGame] =
+    useState(false);
+
+  const [shakeMan, setShakeMan] =
+    useState(false);
 
   const hiddenInputRef = useRef(null);
 
   const [stats, setStats] = useState(() => {
-    const saved = localStorage.getItem("hangman_stats");
+    const saved =
+      localStorage.getItem(
+        "hangman_stats"
+      );
 
     return saved
       ? JSON.parse(saved)
@@ -44,8 +90,11 @@ export default function Game() {
 
   const startGame = () => {
     setStarted(true);
+
     setGuessed([]);
+
     setWrongCount(0);
+
     setVictory(false);
 
     setStats((prev) => ({
@@ -58,23 +107,66 @@ export default function Game() {
     }, 150);
   };
 
+  const nextLevel = () => {
+
+    if (
+      currentLevel <
+      levels.length - 1
+    ) {
+      setCurrentLevel(
+        (prev) => prev + 1
+      );
+
+      setGuessed([]);
+
+      setWrongCount(0);
+
+      setVictory(false);
+
+      setTimeout(() => {
+        hiddenInputRef.current?.focus();
+      }, 150);
+    } else {
+      setVictory(false);
+
+      alert(
+        "You completed every level ❤️"
+      );
+    }
+  };
+
   const submitLetter = (letter) => {
+
     if (!letter) return;
 
-    const upper = letter.toUpperCase();
+    const upper =
+      letter.toUpperCase();
 
-    if (!/^[A-Z]$/.test(upper)) return;
+    if (
+      !/^[A-Z]$/.test(upper)
+    )
+      return;
 
-    if (guessed.includes(upper)) return;
+    if (
+      guessed.includes(upper)
+    )
+      return;
 
-    const updated = [...guessed, upper];
+    const updated = [
+      ...guessed,
+      upper,
+    ];
 
     setGuessed(updated);
 
-    if (answer.includes(upper)) {
+    if (
+      answer.includes(upper)
+    ) {
+
       setStats((prev) => ({
         ...prev,
-        rightGuesses: prev.rightGuesses + 1,
+        rightGuesses:
+          prev.rightGuesses + 1,
       }));
 
       const won = answer
@@ -84,13 +176,19 @@ export default function Game() {
         );
 
       if (won) {
+
         setVictory(true);
 
         rightAudio.currentTime = 0;
+
         rightAudio.play();
       }
+
     } else {
-      setWrongCount((prev) => prev + 1);
+
+      setWrongCount(
+        (prev) => prev + 1
+      );
 
       setStats((prev) => ({
         ...prev,
@@ -99,9 +197,11 @@ export default function Game() {
       }));
 
       wrongAudio.currentTime = 0;
+
       wrongAudio.play();
 
       setFlashWrong(true);
+
       setShakeMan(true);
 
       setTimeout(() => {
@@ -115,12 +215,18 @@ export default function Game() {
   };
 
   useEffect(() => {
+
     if (!started) return;
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (
+      e
+    ) => {
+
       const key = e.key;
 
-      if (/^[a-zA-Z]$/.test(key)) {
+      if (
+        /^[a-zA-Z]$/.test(key)
+      ) {
         submitLetter(key);
       }
     };
@@ -136,19 +242,19 @@ export default function Game() {
         handleKeyDown
       );
     };
+
   }, [started, guessed]);
 
   return (
     <section className="game-page">
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Shrikhand&display=swap');
 
         :root{
           --bg:#0f0f0f;
-          --card:#171717;
           --text:#e9f3d1;
           --brown:#c9b39a1a;
-          --radius:22px;
           --store-bg:#3E95A6;
         }
 
@@ -159,20 +265,15 @@ export default function Game() {
         html,
         body{
           margin:0;
-          width:100%;
           overflow-x:hidden;
-          background:var(--bg);
+          background:#0f0f0f;
           font-family:"Space Grotesk",sans-serif;
-        }
-
-        body{
-          color:var(--text);
         }
 
         .game-page{
           min-height:100vh;
-          background:var(--bg);
-          overflow-x:hidden;
+          background:#0f0f0f;
+          color:var(--text);
         }
 
         a{
@@ -191,7 +292,11 @@ export default function Game() {
           position:sticky;
           top:0;
           z-index:50;
-          backdrop-filter:saturate(1.2) blur(6px);
+
+          backdrop-filter:
+            saturate(1.2)
+            blur(6px);
+
           background:
             linear-gradient(
               180deg,
@@ -199,7 +304,8 @@ export default function Game() {
               rgba(15,15,15,.72)
             );
 
-          border-bottom:1px solid #222;
+          border-bottom:
+            1px solid #222;
         }
 
         .nav{
@@ -210,21 +316,18 @@ export default function Game() {
           padding:14px 0;
         }
 
-        .brand{
-          display:flex;
-          align-items:center;
-        }
-
         .brand small{
           opacity:.7;
-          color:var(--text);
           font-weight:600;
         }
 
         .btn-news{
           padding:.55rem 1rem;
+
           border-radius:999px;
+
           color:#111;
+
           background:
             linear-gradient(
               90deg,
@@ -233,9 +336,6 @@ export default function Game() {
             );
 
           font-weight:800;
-          border:1px solid #00000020;
-          box-shadow:
-            0 2px 10px #ff6a0033;
 
           transition:.25s ease;
         }
@@ -244,7 +344,7 @@ export default function Game() {
           transform:translateY(-2px);
         }
 
-        /* TOP CARD SECTION */
+        /* TOP */
 
         .logo-strip{
           background:var(--brown);
@@ -254,7 +354,9 @@ export default function Game() {
 
         .logo-card{
           margin:22px auto;
+
           border-radius:28px;
+
           padding:28px 20px;
 
           background:#201a1411;
@@ -264,19 +366,22 @@ export default function Game() {
 
           display:grid;
           place-items:center;
+
           text-align:center;
         }
 
         .logo-title{
           font-family:"Shrikhand",cursive;
+
           font-size:
             clamp(30px,5vw,52px);
         }
 
         .logo-sub{
-          margin-top:.4rem;
+          margin-top:.5rem;
+
           opacity:.7;
-          font-size:.95rem;
+
           line-height:1.7;
         }
 
@@ -289,7 +394,7 @@ export default function Game() {
             calc(100vh - 180px);
 
           padding:
-            60px 20px 90px;
+            60px 20px 100px;
         }
 
         .game-inner{
@@ -300,7 +405,6 @@ export default function Game() {
         .game-area{
           display:flex;
           justify-content:center;
-          align-items:center;
         }
 
         /* BUTTON */
@@ -309,6 +413,7 @@ export default function Game() {
           padding:14px 34px;
 
           border:none;
+
           border-radius:999px;
 
           background:
@@ -331,15 +436,7 @@ export default function Game() {
           animation:
             pulse 1.2s infinite;
 
-          box-shadow:
-            0 6px 20px
-            #ff6a0036;
-
           transition:.25s ease;
-        }
-
-        .play-btn:hover{
-          transform:scale(1.07);
         }
 
         @keyframes pulse{
@@ -364,6 +461,7 @@ export default function Game() {
         }
 
         .game-modal{
+
           position:relative;
 
           width:min(92vw,430px);
@@ -385,38 +483,15 @@ export default function Game() {
 
           overflow:hidden;
 
-          padding:22px 18px;
+          padding:
+            24px 18px 40px;
 
           box-shadow:
-            0 30px 80px rgba(0,0,0,.45),
-            inset 0 0 0 1px rgba(255,255,255,.03);
+            0 30px 80px rgba(0,0,0,.45);
 
           display:flex;
           flex-direction:column;
           align-items:center;
-
-          transition:
-            background .35s ease,
-            transform .25s ease;
-        }
-
-        .game-modal::before{
-          content:"";
-
-          position:absolute;
-
-          top:10px;
-          left:50%;
-
-          transform:translateX(-50%);
-
-          width:120px;
-          height:8px;
-
-          border-radius:999px;
-
-          background:
-            rgba(255,255,255,.14);
         }
 
         .game-modal.flash{
@@ -439,6 +514,26 @@ export default function Game() {
           }
         }
 
+        .game-modal::before{
+          content:"";
+
+          position:absolute;
+
+          top:10px;
+          left:50%;
+
+          transform:
+            translateX(-50%);
+
+          width:120px;
+          height:8px;
+
+          border-radius:999px;
+
+          background:
+            rgba(255,255,255,.14);
+        }
+
         .start-screen{
           width:100%;
           height:100%;
@@ -448,22 +543,44 @@ export default function Game() {
           justify-content:center;
         }
 
-        /* TITLE */
+        /* LEVEL */
 
-        .hang-title{
+        .level-text{
+          margin-top:16px;
+
+          font-size:15px;
+
+          letter-spacing:3px;
+
+          text-transform:uppercase;
+
+          opacity:.65;
+        }
+
+        .level-title{
           margin:
-            22px 0 12px;
+            8px 0 6px;
 
           font-size:
-            clamp(30px,4vw,44px);
+            clamp(34px,5vw,52px);
 
-          line-height:1.2;
+          line-height:1.1;
 
           text-align:center;
 
           font-family:
             "Shrikhand",
             cursive;
+        }
+
+        .level-subtitle{
+          text-align:center;
+
+          opacity:.72;
+
+          line-height:1.6;
+
+          margin-bottom:6px;
         }
 
         /* HANGMAN */
@@ -475,9 +592,7 @@ export default function Game() {
           align-items:center;
           justify-content:center;
 
-          min-height:330px;
-
-          position:relative;
+          min-height:320px;
         }
 
         .gallows{
@@ -516,9 +631,19 @@ export default function Game() {
           }
         }
 
-        .base{
+        .base,
+        .pole,
+        .topbar,
+        .rope,
+        .body,
+        .arm-left,
+        .arm-right,
+        .leg-left,
+        .leg-right{
           position:absolute;
+        }
 
+        .base{
           bottom:0;
           left:10px;
 
@@ -526,13 +651,9 @@ export default function Game() {
           height:8px;
 
           background:white;
-
-          border-radius:20px;
         }
 
         .pole{
-          position:absolute;
-
           left:45px;
           bottom:0;
 
@@ -540,13 +661,9 @@ export default function Game() {
           height:250px;
 
           background:white;
-
-          border-radius:20px;
         }
 
         .topbar{
-          position:absolute;
-
           top:20px;
           left:45px;
 
@@ -554,13 +671,9 @@ export default function Game() {
           height:8px;
 
           background:white;
-
-          border-radius:20px;
         }
 
         .rope{
-          position:absolute;
-
           top:20px;
           left:160px;
 
@@ -586,16 +699,12 @@ export default function Game() {
 
           opacity:0;
 
-          transform:
-            scale(.3);
+          transform:scale(.3);
 
-          transition:
-            .3s ease;
+          transition:.3s ease;
         }
 
         .body{
-          position:absolute;
-
           top:105px;
           left:159px;
 
@@ -606,29 +715,20 @@ export default function Game() {
 
           opacity:0;
 
-          transform:
-            scaleY(.1);
+          transform:scaleY(.1);
 
           transform-origin:top;
-
-          transition:
-            .3s ease;
         }
 
         .arm-left,
         .arm-right,
         .leg-left,
         .leg-right{
-          position:absolute;
-
           height:5px;
 
           background:white;
 
           opacity:0;
-
-          transition:
-            .3s ease;
         }
 
         .arm-left{
@@ -679,15 +779,15 @@ export default function Game() {
         /* WORD */
 
         .word-section{
-          margin-top:auto;
-
           width:100%;
 
           display:flex;
           flex-direction:column;
           align-items:center;
 
-          padding-bottom:8px;
+          margin-top:auto;
+
+          padding-bottom:40px;
         }
 
         .slots{
@@ -712,27 +812,28 @@ export default function Game() {
 
           font-size:34px;
 
-          text-transform:uppercase;
-
           font-family:
             "Shrikhand",
             cursive;
         }
 
-        .slot:hover{
-          opacity:.85;
-        }
-
         .used{
-          margin-top:20px;
+          margin-top:24px;
 
           text-align:center;
 
-          line-height:1.8;
+          line-height:1.9;
 
           font-size:14px;
 
-          opacity:.72;
+          opacity:.75;
+
+          width:100%;
+
+          padding:
+            0 14px;
+
+          word-break:break-word;
         }
 
         .hidden-input{
@@ -786,18 +887,9 @@ export default function Game() {
           padding:34px;
 
           text-align:center;
-
-          border:
-            1px solid
-            rgba(255,255,255,.08);
-
-          animation:
-            popIn .4s ease;
         }
 
         .victory-card h2{
-          margin-bottom:12px;
-
           font-size:34px;
 
           font-family:
@@ -806,84 +898,53 @@ export default function Game() {
         }
 
         .victory-card p{
-          opacity:.84;
+          opacity:.82;
+
           line-height:1.7;
-          margin-bottom:20px;
-        }
 
-        @keyframes popIn{
-          from{
-            transform:
-              scale(.7);
-
-            opacity:0;
-          }
-
-          to{
-            transform:
-              scale(1);
-
-            opacity:1;
-          }
-        }
-
-        /* MOBILE */
-
-        @media (max-width:820px){
-
-          .nav{
-            gap:10px;
-          }
-
-          .brand{
-            width:100%;
-            justify-content:center;
-          }
+          margin:
+            12px 0 22px;
         }
 
         @media (max-width:768px){
 
-          .game-section{
-            padding:
-              40px 14px 80px;
-          }
-
           .game-modal{
             width:min(95vw,430px);
 
-            height:82vh;
+            height:84vh;
 
             border-radius:32px;
-
-            padding:20px 14px;
           }
 
           .hangman-zone{
-            min-height:280px;
+            min-height:260px;
           }
 
           .gallows{
-            transform:scale(.92);
+            transform:scale(.9);
           }
 
           .slot{
             width:46px;
             height:58px;
+
             font-size:28px;
           }
 
           .play-btn{
             width:100%;
             max-width:280px;
-            font-size:18px;
+          }
+
+          .used{
+            font-size:13px;
           }
         }
       `}</style>
 
-      {/* NAV */}
-
       <header>
         <div className="wrap nav">
+
           <div className="brand">
             <small>
               Specially for the baby girl...
@@ -896,14 +957,15 @@ export default function Game() {
           >
             Back To Poetry
           </a>
+
         </div>
       </header>
 
-      {/* TOP CARD */}
-
       <div className="logo-strip">
         <div className="wrap">
+
           <div className="logo-card">
+
             <div className="logo-title">
               You're The Poetry
             </div>
@@ -913,17 +975,18 @@ export default function Game() {
               But the meaning of those
               words · Will always be you
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* BLUE SECTION */}
-
       <section className="game-section">
+
         <div className="game-inner">
 
           {!showGame && (
             <div className="game-area">
+
               <button
                 className="play-btn"
                 onClick={() =>
@@ -932,6 +995,7 @@ export default function Game() {
               >
                 Play
               </button>
+
             </div>
           )}
 
@@ -948,21 +1012,34 @@ export default function Game() {
                 >
 
                   {!started ? (
+
                     <div className="start-screen">
+
                       <button
                         className="play-btn"
                         onClick={startGame}
                       >
                         Start Game
                       </button>
+
                     </div>
+
                   ) : (
                     <>
-                      <h1 className="hang-title">
-                        Guess the name ❤️
+                      <div className="level-text">
+                        {levels[currentLevel].title}
+                      </div>
+
+                      <h1 className="level-title">
+                        {answer}
                       </h1>
 
-                      {/* HANGMAN */}
+                      <div className="level-subtitle">
+                        {
+                          levels[currentLevel]
+                            .subtitle
+                        }
+                      </div>
 
                       <div className="hangman-zone">
 
@@ -1033,8 +1110,6 @@ export default function Game() {
                         </div>
                       </div>
 
-                      {/* WORD */}
-
                       <div className="word-section">
 
                         <div
@@ -1063,8 +1138,6 @@ export default function Game() {
                               )
                             )}
                         </div>
-
-                        {/* MOBILE KEYBOARD */}
 
                         <input
                           ref={
@@ -1099,15 +1172,15 @@ export default function Game() {
                               )
                             : "None yet"}
                         </div>
+
                       </div>
                     </>
                   )}
                 </div>
               </div>
 
-              {/* OUTSIDE MODAL */}
-
               <div className="stats">
+
                 Attempts:
                 {" "}
                 {stats.attempts}
@@ -1123,32 +1196,37 @@ export default function Game() {
                 Wrong guesses:
                 {" "}
                 {stats.wrongGuesses}
+
               </div>
             </>
           )}
         </div>
       </section>
 
-      {/* VICTORY */}
-
       {victory && (
+
         <div className="victory">
+
           <div className="victory-card">
 
             <h2>
-              You Won ❤️
+              Level Complete ❤️
             </h2>
 
             <p>
-              You guessed her name
-              correctly.
+              You solved
+              {" "}
+              {levels[currentLevel].title}
             </p>
 
             <button
               className="play-btn"
-              onClick={startGame}
+              onClick={nextLevel}
             >
-              Play Again
+              {currentLevel <
+              levels.length - 1
+                ? "Next Level"
+                : "Finish"}
             </button>
 
           </div>
