@@ -1303,11 +1303,30 @@ export default function Game() {
             </p>
 
             <button
-              className="play-btn"
-              onClick={returnToMenu}
-            >
-              Back To Start
-            </button>
+  className="play-btn"
+  onClick={() => {
+
+    if (
+      currentLevel <
+      levels.length - 1
+    ) {
+
+      nextLevel();
+
+    } else {
+
+      window.open(
+        "https://example.com",
+        "_blank"
+      );
+    }
+  }}
+>
+  {currentLevel <
+  levels.length - 1
+    ? "Next Level"
+    : "Collect your reward!"}
+</button>
 
           </div>
         </div>
