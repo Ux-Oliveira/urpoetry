@@ -1263,11 +1263,7 @@ export default function Game() {
         <div className="victory">
 
           <div className="victory-card">
-
-            <h2>
-              Woah baby, you did it! <3
-            </h2>
-
+            <h2>Woah baby, you did it!</h2>
             <p>
               You solved
               {" "}
