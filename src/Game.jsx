@@ -1270,15 +1270,31 @@ export default function Game() {
               {levels[currentLevel].title}
             </p>
 
-            <button
-              className="play-btn"
-              onClick={nextLevel}
-            >
-              {currentLevel <
-              levels.length - 1
-                ? "Next Level"
-                : "Finish"}
-            </button>
+             <button
+  className="play-btn"
+  onClick={() => {
+
+    if (
+      currentLevel <
+      levels.length - 1
+    ) {
+
+      nextLevel();
+
+    } else {
+
+      window.open(
+        "https://example.com",
+        "_blank"
+      );
+    }
+  }}
+>
+  {currentLevel <
+  levels.length - 1
+    ? "Next Level"
+    : "Collect your reward!"}
+</button>
 
           </div>
         </div>
