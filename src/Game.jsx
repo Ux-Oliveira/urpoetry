@@ -4,31 +4,32 @@ export default function Game() {
 
   const levels = [
     {
-      answer: "MELIS",
+      answer: "ME",
       title: "Level 1",
-      subtitle: "The beginning ❤️",
+      subtitle: "Who will love you beyond time?",
     },
 
     {
-      answer: "ANGEL",
+      answer: "MELIS",
       title: "Level 2",
-      subtitle: "Still thinking about her...",
+      subtitle: "Who's the most beautiful woman in the world?",
     },
 
     {
-      answer: "POETRY",
+      answer: "CHERRY",
       title: "Level 3",
-      subtitle: "Words always lead back to her",
+      subtitle: "What fruit are your lips made of?",
     },
 
     {
-      answer: "FOREVER",
+      answer: "ALWAYS",
       title: "Level 4",
-      subtitle: "Some feelings never leave",
+      subtitle: "Until when will I love you?",
     },
   ];
 
-  const [currentLevel, setCurrentLevel] = useState(0);
+  const [currentLevel, setCurrentLevel] =
+    useState(0);
 
   const answer =
     levels[currentLevel].answer;
@@ -46,6 +47,9 @@ export default function Game() {
     useState(false);
 
   const [victory, setVictory] =
+    useState(false);
+
+  const [lost, setLost] =
     useState(false);
 
   const [showGame, setShowGame] =
@@ -89,6 +93,7 @@ export default function Game() {
   );
 
   const startGame = () => {
+
     setStarted(true);
 
     setGuessed([]);
@@ -96,6 +101,10 @@ export default function Game() {
     setWrongCount(0);
 
     setVictory(false);
+
+    setLost(false);
+
+    setCurrentLevel(0);
 
     setStats((prev) => ({
       ...prev,
@@ -113,6 +122,7 @@ export default function Game() {
       currentLevel <
       levels.length - 1
     ) {
+
       setCurrentLevel(
         (prev) => prev + 1
       );
@@ -123,11 +133,25 @@ export default function Game() {
 
       setVictory(false);
 
+      setLost(false);
+
       setTimeout(() => {
         hiddenInputRef.current?.focus();
       }, 150);
+
     } else {
+
       setVictory(false);
+
+      setStarted(false);
+
+      setShowGame(false);
+
+      setCurrentLevel(0);
+
+      setGuessed([]);
+
+      setWrongCount(0);
 
       alert(
         "You completed every level ❤️"
@@ -135,22 +159,41 @@ export default function Game() {
     }
   };
 
+  const returnToMenu = () => {
+
+    setLost(false);
+
+    setStarted(false);
+
+    setShowGame(false);
+
+    setCurrentLevel(0);
+
+    setGuessed([]);
+
+    setWrongCount(0);
+  };
+
   const submitLetter = (letter) => {
 
     if (!letter) return;
+
+    if (victory || lost) return;
 
     const upper =
       letter.toUpperCase();
 
     if (
       !/^[A-Z]$/.test(upper)
-    )
+    ) {
       return;
+    }
 
     if (
       guessed.includes(upper)
-    )
+    ) {
       return;
+    }
 
     const updated = [
       ...guessed,
@@ -186,9 +229,14 @@ export default function Game() {
 
     } else {
 
-      setWrongCount(
-        (prev) => prev + 1
-      );
+      const newWrong =
+        wrongCount + 1;
+
+      if (newWrong > 6) {
+        return;
+      }
+
+      setWrongCount(newWrong);
 
       setStats((prev) => ({
         ...prev,
@@ -211,6 +259,13 @@ export default function Game() {
       setTimeout(() => {
         setShakeMan(false);
       }, 500);
+
+      if (newWrong === 6) {
+
+        setTimeout(() => {
+          setLost(true);
+        }, 500);
+      }
     }
   };
 
@@ -243,7 +298,13 @@ export default function Game() {
       );
     };
 
-  }, [started, guessed]);
+  }, [
+    started,
+    guessed,
+    wrongCount,
+    victory,
+    lost,
+  ]);
 
   return (
     <section className="game-page">
@@ -285,8 +346,6 @@ export default function Game() {
           margin:0 auto;
           padding:0 20px;
         }
-
-        /* NAV */
 
         header{
           position:sticky;
@@ -344,10 +403,9 @@ export default function Game() {
           transform:translateY(-2px);
         }
 
-        /* TOP */
-
         .logo-strip{
           background:var(--brown);
+
           border-bottom:
             1px solid #24211c;
         }
@@ -385,8 +443,6 @@ export default function Game() {
           line-height:1.7;
         }
 
-        /* BLUE SECTION */
-
         .game-section{
           background:var(--store-bg);
 
@@ -406,8 +462,6 @@ export default function Game() {
           display:flex;
           justify-content:center;
         }
-
-        /* BUTTON */
 
         .play-btn{
           padding:14px 34px;
@@ -453,8 +507,6 @@ export default function Game() {
           }
         }
 
-        /* MODAL */
-
         .game-wrap{
           display:flex;
           justify-content:center;
@@ -466,7 +518,7 @@ export default function Game() {
 
           width:min(92vw,430px);
 
-          height:min(88vh,860px);
+          height:min(92vh,940px);
 
           background:
             radial-gradient(
@@ -484,7 +536,7 @@ export default function Game() {
           overflow:hidden;
 
           padding:
-            24px 18px 40px;
+            24px 18px 65px;
 
           box-shadow:
             0 30px 80px rgba(0,0,0,.45);
@@ -543,8 +595,6 @@ export default function Game() {
           justify-content:center;
         }
 
-        /* LEVEL */
-
         .level-text{
           margin-top:16px;
 
@@ -559,7 +609,7 @@ export default function Game() {
 
         .level-title{
           margin:
-            8px 0 6px;
+            8px 0 8px;
 
           font-size:
             clamp(34px,5vw,52px);
@@ -580,10 +630,10 @@ export default function Game() {
 
           line-height:1.6;
 
-          margin-bottom:6px;
-        }
+          margin-bottom:10px;
 
-        /* HANGMAN */
+          max-width:300px;
+        }
 
         .hangman-zone{
           width:100%;
@@ -776,8 +826,6 @@ export default function Game() {
           transform:scale(1);
         }
 
-        /* WORD */
-
         .word-section{
           width:100%;
 
@@ -787,14 +835,18 @@ export default function Game() {
 
           margin-top:auto;
 
-          padding-bottom:40px;
+          padding-bottom:20px;
         }
 
         .slots{
           display:flex;
           justify-content:center;
           gap:14px;
-          flex-wrap:wrap;
+          flex-wrap:nowrap;
+
+          min-height:70px;
+
+          width:100%;
 
           cursor:text;
         }
@@ -802,6 +854,8 @@ export default function Game() {
         .slot{
           width:54px;
           height:66px;
+
+          min-width:54px;
 
           display:flex;
           align-items:center;
@@ -818,7 +872,7 @@ export default function Game() {
         }
 
         .used{
-          margin-top:24px;
+          margin-top:28px;
 
           text-align:center;
 
@@ -842,8 +896,6 @@ export default function Game() {
           pointer-events:none;
         }
 
-        /* STATS */
-
         .stats{
           margin-top:30px;
 
@@ -858,9 +910,8 @@ export default function Game() {
           font-weight:700;
         }
 
-        /* VICTORY */
-
-        .victory{
+        .victory,
+        .lost-screen{
           position:fixed;
           inset:0;
 
@@ -911,9 +962,12 @@ export default function Game() {
           .game-modal{
             width:min(95vw,430px);
 
-            height:84vh;
+            height:88vh;
 
             border-radius:32px;
+
+            padding:
+              22px 14px 75px;
           }
 
           .hangman-zone{
@@ -926,6 +980,7 @@ export default function Game() {
 
           .slot{
             width:46px;
+            min-width:46px;
             height:58px;
 
             font-size:28px;
@@ -1031,7 +1086,7 @@ export default function Game() {
                       </div>
 
                       <h1 className="level-title">
-                        {answer}
+                        Hangman
                       </h1>
 
                       <div className="level-subtitle">
@@ -1227,6 +1282,31 @@ export default function Game() {
               levels.length - 1
                 ? "Next Level"
                 : "Finish"}
+            </button>
+
+          </div>
+        </div>
+      )}
+
+      {lost && (
+
+        <div className="lost-screen">
+
+          <div className="victory-card">
+
+            <h2>
+              You Lost 💔
+            </h2>
+
+            <p>
+              The hangman was completed.
+            </p>
+
+            <button
+              className="play-btn"
+              onClick={returnToMenu}
+            >
+              Back To Start
             </button>
 
           </div>
