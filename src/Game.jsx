@@ -6,25 +6,25 @@ export default function Game() {
     {
       answer: "ME",
       title: "Level 1",
-      subtitle: "Who will love you beyond time?",
+      subtitle: "Hint: Who will love you beyond time?",
     },
 
     {
       answer: "MELIS",
       title: "Level 2",
-      subtitle: "Who's the most beautiful woman in the world?",
+      subtitle: "Hint: Who's the most beautiful woman in the world?",
     },
 
     {
       answer: "CHERRY",
       title: "Level 3",
-      subtitle: "What fruit are your lips made of?",
+      subtitle: "Hint: What fruit are your lips made of?",
     },
 
     {
       answer: "ALWAYS",
       title: "Level 4",
-      subtitle: "Until when will I love you?",
+      subtitle: "Hint: Until when will I love you?",
     },
   ];
 
@@ -154,7 +154,7 @@ export default function Game() {
       setWrongCount(0);
 
       alert(
-        "You completed every level ❤️"
+        "Such a good girl! I'm proud of you! ❤️"
       );
     }
   };
@@ -1265,7 +1265,7 @@ export default function Game() {
           <div className="victory-card">
 
             <h2>
-              Level Complete ❤️
+              Woah baby, you did it! <3
             </h2>
 
             <p>
@@ -1295,11 +1295,11 @@ export default function Game() {
           <div className="victory-card">
 
             <h2>
-              You Lost 💔
+              Ahhh, my angel, you lost 💔
             </h2>
 
             <p>
-              The hangman was completed.
+              I'm so sorry. Better luck next time!
             </p>
 
             <button
