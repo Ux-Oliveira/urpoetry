@@ -1328,7 +1328,7 @@ export default function Game() {
     } else {
 
       window.open(
-        "https://example.com",
+        "https://www.youtube.com/watch?v=7a4LxvHSAis",
         "_blank"
       );
     }
