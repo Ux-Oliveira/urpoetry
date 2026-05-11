@@ -4,7 +4,7 @@ export default function Game() {
 
   const levels = [
     {
-      answer: "ME",
+      answer: "HENRIQUE",
       title: "Level 1",
       subtitle: "Hint: Who will love you beyond time?",
     },
@@ -1284,7 +1284,7 @@ export default function Game() {
     } else {
 
       window.open(
-        "https://example.com",
+        "https://www.youtube.com/watch?v=7a4LxvHSAis",
         "_blank"
       );
     }
