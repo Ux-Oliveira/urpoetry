@@ -4,9 +4,9 @@ export default function Game() {
 
   const levels = [
     {
-      answer: "HENRIQUE",
+      answer: "YOU",
       title: "Level 1",
-      subtitle: "Hint: Who will love you beyond time?",
+      subtitle: "Hint: To whom do I belong to?",
     },
 
     {
