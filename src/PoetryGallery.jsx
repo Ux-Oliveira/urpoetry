@@ -35,7 +35,7 @@ const poems = [
   { id: 14-05, img: "/poems/poem14-5.png", audio: "/audios/poem14-5.mp3" },
   { id: 15-05, img: "/poems/poem15-5.png", audio: "/audios/poem15-5.mp3" },
   { id: 16-05, img: "/poems/poem16-5.png", audio: "/audios/poem16-5.mp3" },
-  /*{ id: 17-05, img: "/poems/poem17-5.png", audio: "/audios/poem17-5.mp3" },*/
+  { id: 17-05, img: "/poems/poem17-5.png", audio: "/audios/poem17-5.mp3" },
   /*{ id: 18-05, img: "/poems/poem18-5.png", audio: "/audios/poem18-5.mp3" },*/
   /*{ id: 19-05, img: "/poems/poem19-5.png", audio: "/audios/poem19-5.mp3" },*/
   /*{ id: 20-05, img: "/poems/poem20-5.png", audio: "/audios/poem20-5.mp3" },*/
