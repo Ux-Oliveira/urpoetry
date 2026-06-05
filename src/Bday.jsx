@@ -315,16 +315,22 @@ export default function Bday() {
   margin-bottom:8px;
 }
 
-        .play-btn{
-          padding:10px 20px;
-          border:none;
-          border-radius:999px;
-          background:linear-gradient(90deg,#fa0292,#f06161);
-          color:white;
-          cursor:pointer;
-          font-size:15px;
-          margin-top:20px;
-        }
+       .play-btn{
+  padding:10px 20px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(
+    135deg,
+    #ff008c 0%,
+    #ff3d7f 30%,
+    #ff5f6d 65%,
+    #ff8a5c 100%
+  );
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  margin-top:20px;
+}
 
        .board{
   position:relative;
@@ -394,7 +400,7 @@ export default function Bday() {
       <header>
         <div className="wrap nav">
           <div>
-            <small>6th of June - Birth of the moon</small>
+            <small>6th of June, Birth of the moon</small>
           </div>
 
           <a href="/" className="btn-news">
