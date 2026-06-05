@@ -418,7 +418,7 @@ export default function Bday() {
 
             <div className="logo-sub">
               The moment might not feel celebratory.
-              But I could never let you bday go unoticed!
+              But I could never let your bday go unoticed!
               Hope you enjoy the surprises! I love you, Melis!
             </div>
           </div>
