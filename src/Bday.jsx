@@ -37,22 +37,34 @@ export default function Bday() {
       ],
     },
     {
-      name: "Heart",
-      color: "#ff3b3b",
-      reveal: "It's my heart, being given to you! <3",
-      dots: [
-        { x: 120, y: 120 },
-        { x: 160, y: 90 },
-        { x: 210, y: 120 },
-        { x: 240, y: 170 },
-        { x: 220, y: 230 },
-        { x: 190, y: 280 },
-        { x: 165, y: 320 },
-        { x: 140, y: 280 },
-        { x: 110, y: 230 },
-        { x: 90, y: 170 },
-      ],
-    },
+  name: "Heart",
+  color: "#ff3b3b",
+  reveal: "It's my heart, being given to you! <3",
+  dots: [
+    { x: 115, y: 140 },
+    { x: 95,  y: 110 },
+    { x: 105, y: 80  },
+    { x: 135, y: 65  },
+    { x: 165, y: 85  },
+
+    { x: 195, y: 65  },
+    { x: 225, y: 80  },
+    { x: 235, y: 110 },
+    { x: 215, y: 140 },
+
+    { x: 200, y: 180 },
+    { x: 185, y: 220 },
+    { x: 170, y: 255 },
+
+    { x: 165, y: 285 },
+
+    { x: 160, y: 255 },
+    { x: 145, y: 220 },
+    { x: 130, y: 180 },
+
+    { x: 115, y: 140 }
+  ]
+},
   ];
 
   const [showGame, setShowGame] = useState(false);
@@ -193,35 +205,34 @@ export default function Bday() {
         }
 
         .lower{
-          min-height:calc(100vh - 220px);
-          background:#3E95A6;
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:flex-start;
-          padding-top:40px;
-          position:relative;
-          overflow:hidden;
-        }
+  min-height:calc(100vh - 220px);
+  background:#3E95A6;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top:40px;
+  position:relative;
+  overflow:visible;
+}
 
-        .cups-track{
-  position:absolute;
-  left:0;
-  right:0;
-  top:120px;
+       .cups-track{
+  width:100%;
   height:220px;
-  overflow:hidden;
+  position:relative;
+  overflow:visible;
+  margin-bottom:40px;
   z-index:999;
 }
-        .cups{
+
+.cups{
   position:absolute;
-  width:240px;
+  width:180px;
   top:20px;
   z-index:999;
   cursor:pointer;
-  animation:slidecups 8s linear infinite;
+  animation:slidecups 10s linear infinite;
 }
-
         @keyframes slidecups{
           from{
             left:-220px;
