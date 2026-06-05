@@ -96,8 +96,9 @@ export default function Bday() {
       winAudio.play();
 
       if (round === 2) {
-        setFinished(true);
-      } else {
+  setShowReveal(true);
+  setFinished(true);
+} else {
         setShowReveal(true);
 
         setTimeout(() => {
@@ -204,6 +205,7 @@ export default function Bday() {
         }
 
         .cups-track{
+          z-index:20;
           width:100%;
           height:180px;
           position:relative;
@@ -212,6 +214,8 @@ export default function Bday() {
         }
 
         .cups{
+          z-index:20;
+          cursor:pointer;
           position:absolute;
           width:180px;
           top:20px;
@@ -228,35 +232,36 @@ export default function Bday() {
         }
 
         .heart-btn{
-          width:180px;
-          height:160px;
-          border:none;
-          cursor:pointer;
-          position:relative;
-          transform:rotate(-45deg);
-          background:linear-gradient(135deg,#ff0055,#ff4444);
-          margin-top:10px;
-        }
+  width:140px;
+  height:140px;
+  border:none;
+  cursor:pointer;
+  position:relative;
+  transform:rotate(-45deg);
+  background:linear-gradient(135deg,#ff0055,#ff4444);
+  margin-top:20px;
+  z-index:1;
+}
 
-        .heart-btn:before,
-        .heart-btn:after{
-          content:"";
-          position:absolute;
-          width:180px;
-          height:160px;
-          border-radius:50%;
-          background:linear-gradient(135deg,#ff0055,#ff4444);
-        }
+.heart-btn:before,
+.heart-btn:after{
+  content:"";
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:inherit;
+}
 
-        .heart-btn:before{
-          top:-90px;
-          left:0;
-        }
+.heart-btn:before{
+  top:-70px;
+  left:0;
+}
 
-        .heart-btn:after{
-          left:90px;
-          top:0;
-        }
+.heart-btn:after{
+  top:0;
+  left:70px;
+}
 
         .heart-text{
           position:absolute;
@@ -282,8 +287,8 @@ export default function Bday() {
         }
 
         .modal{
-          width:min(92vw,460px);
-          min-height:720px;
+          width:min(92vw,420px);
+          min-height:620px;
           background:#111;
           border-radius:35px;
           padding:25px;
@@ -293,7 +298,8 @@ export default function Bday() {
 
         .title{
           font-family:"Shrikhand",cursive;
-          font-size:36px;
+          font-size:28px;
+          line-height:1.2;
         }
 
         .play-btn{
@@ -309,14 +315,14 @@ export default function Bday() {
 
         .board{
           position:relative;
-          width:330px;
-          height:450px;
+          width:280px;
+          height:360px;
           margin:25px auto;
         }
 
         .dot{
-          width:24px;
-          height:24px;
+          width:18px;
+          height:18px;
           border-radius:50%;
           position:absolute;
           transform:translate(-50%,-50%);
@@ -331,7 +337,7 @@ export default function Bday() {
 
         .reveal{
           margin-top:20px;
-          font-size:30px;
+          font-size:22px;
           font-family:"Shrikhand",cursive;
         }
 
@@ -378,10 +384,11 @@ export default function Bday() {
         {!showGame && (
           <>
             <div className="cups-track">
-              <img
-                src="/2cups.png"
-                alt=""
-                className="cups"
+             <img
+             src="/2cups.png"
+             alt=""
+             className="cups"
+             onClick={() => setShowGame(true)}
               />
             </div>
 
