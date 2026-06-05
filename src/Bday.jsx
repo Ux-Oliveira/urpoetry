@@ -205,22 +205,22 @@ export default function Bday() {
         }
 
         .cups-track{
-          z-index:20;
-          width:100%;
-          height:180px;
-          position:relative;
-          overflow:hidden;
-          margin-bottom:40px;
-        }
-
+  position:absolute;
+  left:0;
+  right:0;
+  top:120px;
+  height:220px;
+  overflow:hidden;
+  z-index:999;
+}
         .cups{
-          z-index:20;
-          cursor:pointer;
-          position:absolute;
-          width:180px;
-          top:20px;
-          animation:slidecups 10s linear infinite;
-        }
+  position:absolute;
+  width:240px;
+  top:20px;
+  z-index:999;
+  cursor:pointer;
+  animation:slidecups 8s linear infinite;
+}
 
         @keyframes slidecups{
           from{
@@ -287,8 +287,9 @@ export default function Bday() {
         }
 
         .modal{
-          width:min(92vw,420px);
-          min-height:620px;
+          width:min(88vw,360px);
+          min-height:520px;
+          max-height:90vh;
           background:#111;
           border-radius:35px;
           padding:25px;
@@ -297,32 +298,34 @@ export default function Bday() {
         }
 
         .title{
-          font-family:"Shrikhand",cursive;
-          font-size:28px;
-          line-height:1.2;
-        }
+  font-family:"Shrikhand",cursive;
+  font-size:22px;
+  line-height:1.2;
+  margin-bottom:8px;
+}
 
         .play-btn{
-          padding:14px 30px;
+          padding:10px 20px;
           border:none;
           border-radius:999px;
           background:linear-gradient(90deg,#fa0292,#f06161);
           color:white;
           cursor:pointer;
-          font-size:18px;
+          font-size:15px;
           margin-top:20px;
         }
 
-        .board{
-          position:relative;
-          width:280px;
-          height:360px;
-          margin:25px auto;
-        }
+       .board{
+  position:relative;
+  width:220px;
+  height:260px;
+  margin:15px auto;
+  display:block;
+}
 
         .dot{
-          width:18px;
-          height:18px;
+          width:14px;
+          height:14px;
           border-radius:50%;
           position:absolute;
           transform:translate(-50%,-50%);
@@ -336,20 +339,45 @@ export default function Bday() {
         }
 
         .reveal{
-          margin-top:20px;
-          font-size:22px;
+          margin-top:10px;
+          font-size:18px;
           font-family:"Shrikhand",cursive;
         }
 
         @media(max-width:768px){
-          .logo-title{
-            font-size:36px;
-          }
+          .modal{
+    width:92vw;
+    min-height:480px;
+    padding:16px;
+  }
 
-          .board{
-            transform:scale(.85);
-          }
-        }
+  .title{
+    font-size:20px;
+  }
+
+  .board{
+    width:200px;
+    height:240px;
+  }
+
+  .dot{
+    width:12px;
+    height:12px;
+  }
+
+  .play-btn{
+    font-size:14px;
+    padding:10px 16px;
+  }
+
+  .reveal{
+    font-size:16px;
+  }
+
+  .logo-title{
+    font-size:36px;
+  }
+}
       `}</style>
 
       <header>
@@ -405,8 +433,17 @@ export default function Bday() {
       </section>
 
       {showGame && (
-        <div className="overlay">
-          <div className="modal">
+  <div
+    className="overlay"
+    onClick={() => {
+      setShowGame(false);
+      setStarted(false);
+    }}
+  >
+    <div
+      className="modal"
+      onClick={(e) => e.stopPropagation()}
+    >
 
             {!started ? (
               <>
@@ -431,6 +468,7 @@ export default function Bday() {
                   Round {round + 1}
                 </h3>
 
+                {!finished && (
                 <div className="board">
                   {currentRound.dots
                     .slice(0, revealedDots)
@@ -446,8 +484,8 @@ export default function Bday() {
                           clickDot(index)
                         }
                         style={{
-                          left: dot.x,
-                          top: dot.y,
+                         left: dot.x * 0.7,
+                         top: dot.y * 0.7,
                           background:
                             clickedDots.includes(index)
                               ? currentRound.color
@@ -456,6 +494,7 @@ export default function Bday() {
                       />
                     ))}
                 </div>
+              )}
 
                 {showReveal && (
                   <h1 className="reveal">
