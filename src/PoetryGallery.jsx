@@ -89,7 +89,7 @@ const poems = [
 { id: 6-07, img: "/poems/poem6-7.png", audio: "/audios/poem6-7.mp3" },
 { id: 7-07, img: "/poems/poem7-7.png", audio: "/audios/poem7-7.mp3" },
 { id: 8-07, img: "/poems/poem8-7.png", audio: "/audios/poem8-7.mp3" },
-{ id: 9-07, img: "/poems/poem9-7.png", audio: "/audios/poem9-7.mp3" },
+/*{ id: 9-07, img: "/poems/poem9-7.png", audio: "/audios/poem9-7.mp3" },*/
   
 ];
 
