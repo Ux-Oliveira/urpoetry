@@ -89,7 +89,40 @@ const poems = [
 { id: 6-07, img: "/poems/poem6-7.png", audio: "/audios/poem6-7.mp3" },
 { id: 7-07, img: "/poems/poem7-7.png", audio: "/audios/poem7-7.mp3" },
 { id: 8-07, img: "/poems/poem8-7.png", audio: "/audios/poem8-7.mp3" },
-/*{ id: 9-07, img: "/poems/poem9-7.png", audio: "/audios/poem9-7.mp3" },*/
+{ id: 9-07, img: "/poems/poem9-7.png", audio: "/audios/poem9-7.mp3" },*/
+{ id: "10-7", img: "/poems/poem10-7.png", audio: "/audios/poem10-7.mp3" },
+{ id: "11-7", img: "/poems/poem11-7.png", audio: "/audios/poem11-7.mp3" },
+{ id: "12-7", img: "/poems/poem12-7.png", audio: "/audios/poem12-7.mp3" },
+{ id: "13-7", img: "/poems/poem13-7.png", audio: "/audios/poem13-7.mp3" },
+{ id: "14-7", img: "/poems/poem14-7.png", audio: "/audios/poem14-7.mp3" },
+{ id: "15-7", img: "/poems/poem15-7.png", audio: "/audios/poem15-7.mp3" },
+{ id: "16-7", img: "/poems/poem16-7.png", audio: "/audios/poem16-7.mp3" },
+{ id: "17-7", img: "/poems/poem17-7.png", audio: "/audios/poem17-7.mp3" },
+{ id: "18-7", img: "/poems/poem18-7.png", audio: "/audios/poem18-7.mp3" },
+{ id: "19-7", img: "/poems/poem19-7.png", audio: "/audios/poem19-7.mp3" },
+{ id: "20-7", img: "/poems/poem20-7.png", audio: "/audios/poem20-7.mp3" },
+/*{ id: "21-7", img: "/poems/poem21-7.png", audio: "/audios/poem21-7.mp3" },*/
+/*{ id: "22-7", img: "/poems/poem22-7.png", audio: "/audios/poem22-7.mp3" },*/
+/*{ id: "23-7", img: "/poems/poem23-7.png", audio: "/audios/poem23-7.mp3" },*/
+/*{ id: "24-7", img: "/poems/poem24-7.png", audio: "/audios/poem24-7.mp3" },*/
+/*{ id: "25-7", img: "/poems/poem25-7.png", audio: "/audios/poem25-7.mp3" },*/
+/*{ id: "26-7", img: "/poems/poem26-7.png", audio: "/audios/poem26-7.mp3" },*/
+/*{ id: "27-7", img: "/poems/poem27-7.png", audio: "/audios/poem27-7.mp3" },*/
+/*{ id: "28-7", img: "/poems/poem28-7.png", audio: "/audios/poem28-7.mp3" },*/
+/*{ id: "29-7", img: "/poems/poem29-7.png", audio: "/audios/poem29-7.mp3" },*/
+/*{ id: "30-7", img: "/poems/poem30-7.png", audio: "/audios/poem30-7.mp3" },*/
+/*{ id: "31-7", img: "/poems/poem31-7.png", audio: "/audios/poem31-7.mp3" },*/
+
+/*{ id: "1-8", img: "/poems/poem1-8.png", audio: "/audios/poem1-8.mp3" },*/
+/*{ id: "2-8", img: "/poems/poem2-8.png", audio: "/audios/poem2-8.mp3" },*/
+/*{ id: "3-8", img: "/poems/poem3-8.png", audio: "/audios/poem3-8.mp3" },*/
+/*{ id: "4-8", img: "/poems/poem4-8.png", audio: "/audios/poem4-8.mp3" },*/
+/*{ id: "5-8", img: "/poems/poem5-8.png", audio: "/audios/poem5-8.mp3" },*/
+/*{ id: "6-8", img: "/poems/poem6-8.png", audio: "/audios/poem6-8.mp3" },*/
+/*{ id: "7-8", img: "/poems/poem7-8.png", audio: "/audios/poem7-8.mp3" },*/
+/*{ id: "8-8", img: "/poems/poem8-8.png", audio: "/audios/poem8-8.mp3" },*/
+/*{ id: "9-8", img: "/poems/poem9-8.png", audio: "/audios/poem9-8.mp3" },*/
+/*{ id: "10-8", img: "/poems/poem10-8.png", audio: "/audios/poem10-8.mp3" },*/
   
 ];
 
